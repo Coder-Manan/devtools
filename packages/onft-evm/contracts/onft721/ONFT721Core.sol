@@ -176,4 +176,6 @@ abstract contract ONFT721Core is IONFT721, OApp, OAppPreCrimeSimulator, OAppOpti
     function _debit(address /*_from*/, uint256 /*_tokenId*/, uint32 /*_dstEid*/) internal virtual;
 
     function _credit(address /*_to*/, uint256 /*_tokenId*/, uint32 /*_srcEid*/) internal virtual;
+
+    function _createNFT(address _to, uint256 _tokenId, string memory tokenURI, uint32 _srcChain/*_srcEid*/) internal virtual;
 }
