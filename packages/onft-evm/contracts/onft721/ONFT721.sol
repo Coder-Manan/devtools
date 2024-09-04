@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.22;
 
-import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 import { ONFT721Core } from "./ONFT721Core.sol";
 
@@ -10,7 +10,7 @@ import { ONFT721Core } from "./ONFT721Core.sol";
  * @title ONFT721 Contract
  * @dev ONFT721 is an ERC-721 token that extends the functionality of the ONFT721Core contract.
  */
-abstract contract ONFT721 is ONFT721Core, ERC721 {
+abstract contract ONFT721 is ONFT721Core, ERC721URIStorage {
     string internal baseTokenURI;
 
     event BaseURISet(string baseURI);
@@ -61,5 +61,10 @@ abstract contract ONFT721 is ONFT721Core, ERC721 {
 
     function _credit(address _to, uint256 _tokenId, uint32 /*_srcEid*/) internal virtual override {
         _mint(_to, _tokenId);
+    }
+    
+    function _createNFT(address _to, uint256 _tokenId, string memory tokenURI, uint32 _srcEid) internal virtual override{
+        _credit(_to, _tokenId, _srcEid);
+        _setTokenURI(_tokenId, tokenURI);
     }
 }
